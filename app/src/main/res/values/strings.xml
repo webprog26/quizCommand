@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">LawyerQuiz</string>
+
+    <string name="answer_given">Answers: %d</string>
+    <string name="points_scored">Points %.1f</string>
+    <string name="game_over">Game Over</string>
+    <string name="restart">Restart</string>
+    <string name="skip_question">Skip</string>
+    <string name="resume_quiz">Resume</string>
+    <string name="greetings">Greetings</string>
+    <string name="begin_test">Begin test</string>
+    <string name="buy_full_version_offer">Buy full version!</string>
+    <string name="reference_for_the_question">Reference: \"%s\"</string>
+    <string name="skipped_questions_message">You got %d skipped questions</string>
+    <string name="go_to_skipped_questions">Go to skipped questions</string>
+    <string name="back_to_quiz">Back to quiz</string>
+    <string name="useful_tip">Useful tip</string>
+</resources>

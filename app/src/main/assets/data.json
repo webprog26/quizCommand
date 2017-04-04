@@ -1,0 +1,463 @@
+{
+  "questions":[
+    {
+      "id":0,
+      "text": "Кто из Ваших родственников имеет или имел польское происхождение?",
+        "answers":[
+          {
+            "id":1,
+            "text":"Бабушка/Дедушка",
+            "points":1,
+            "nextQuestionId":1
+          },
+          {
+            "id":2,
+            "text":"Прабабушка/Прадедушка",
+            "points":1,
+            "nextQuestionId":1
+          },
+          {
+            "id":3,
+            "text":"Отец/Мать",
+            "points":1,
+            "nextQuestionId":2
+          }
+        ],
+        "type":0,
+        "questionImageName":null,
+        "couldBeSkipped":false
+    },
+    {
+      "id":1,
+      "text": "По чьей линии?",
+        "answers":[
+          {
+            "id":1,
+            "text":"По маме",
+            "points":1,
+            "nextQuestionId":2
+          },
+          {
+            "id":2,
+            "text":"По папе",
+            "points":1,
+            "nextQuestionId":2
+          },
+          {
+            "id":3,
+            "text":"По бабушке мамы/папы",
+            "points":1,
+            "nextQuestionId":2
+          },
+          {
+            "id":4,
+            "text":"По дедушке мамы/папы",
+            "points":1,
+            "nextQuestionId":2
+          }
+        ],
+        "type":1,
+        "questionImageName":null,
+        "couldBeSkipped":true  
+    },
+    {
+      "id":2,
+      "text": "Как часто Вы навещаете его/ее/их?",
+        "answers":[
+          {
+            "id":1,
+            "text":"По праздникам/на каникулах",
+            "points":0.5,
+            "nextQuestionId":3
+          },
+          {
+            "id":2,
+            "text":"Несколько раз в месяц",
+            "points":0.7,
+            "nextQuestionId":3
+          },
+          {
+            "id":3,
+            "text":"Мы жили вместе",
+            "points":1,
+            "nextQuestionId":3
+          },
+          {
+            "id":4,
+            "text":"Я его/ее не застал в живых",
+            "points":0.3,
+            "nextQuestionId":3
+          }
+        ],
+        "type":1,
+        "questionImageName":null,
+        "couldBeSkipped":true  
+    },
+    {
+      "id":3,
+      "text": "Зачем Вам карта Побыту?",
+        "answers":[
+          {
+            "id":1,
+            "text":"Хочу продолжить свой род здесь, на Родине",
+            "points":1,
+            "nextQuestionId":4
+          },
+          {
+            "id":2,
+            "text":"Хочу здесь жить",
+            "points":2,
+            "nextQuestionId":9
+          },
+          {
+            "id":3,
+            "text":"Хочу учиться тут и работать",
+            "points":1,
+            "nextQuestionId":5
+          }
+        ],
+        "type":0,
+        "questionImageName":null,
+        "couldBeSkipped":false  
+    },
+    {
+      "id":4,
+      "text": "У вас есть семья? Если да, то где?",
+        "answers":[
+          {
+            "id":1,
+            "text":"В Украине",
+            "points":0,
+            "nextQuestionId":6
+          },
+          {
+            "id":2,
+            "text":"В Беларуси",
+            "points":0,
+            "nextQuestionId":6
+          },
+          {
+            "id":3,
+            "text":"В Европе",
+            "points":0,
+            "nextQuestionId":6
+          },
+          {
+            "id":4,
+            "text":"В Польше",
+            "points":0.5,
+            "nextQuestionId":9
+          }
+        ],
+        "type":1,
+        "questionImageName":null,
+        "couldBeSkipped":false  
+    },
+    {
+      "id":5,
+      "text": "А где вы учитесь или работаете?",
+        "answers":[
+          {
+            "id":1,
+            "text":"В Польше",
+            "points":0,
+            "nextQuestionId":8
+          },
+          {
+            "id":2,
+            "text":"В Европе",
+            "points":0,
+            "nextQuestionId":7
+          },
+          {
+            "id":3,
+            "text":"В Украине",
+            "points":0,
+            "nextQuestionId":7
+          },
+          {
+            "id":4,
+            "text":"В Беларуси",
+            "points":0,
+            "nextQuestionId":7
+          }
+        ],
+        "type":1,
+        "questionImageName":null,
+        "couldBeSkipped":false  
+    },
+    {
+      "id":6,
+      "text": "Есть ли у них польское происхождение?",
+        "answers":[
+          {
+            "id":1,
+            "text":"Да",
+            "points":0.5,
+            "nextQuestionId":10
+          },
+          {
+            "id":2,
+            "text":"Нет",
+            "points":0,
+            "nextQuestionId":14
+          },
+          {
+            "id":3,
+            "text":"Не помню",
+            "points":0,
+            "nextQuestionId":14
+          }
+        ],
+        "type":1,
+        "questionImageName":null,
+        "couldBeSkipped":false  
+    },
+    {
+      "id":7,
+      "text": "А когда планируете перебираться в Польшу?",
+        "answers":[
+          {
+            "id":1,
+            "text":"Ближайшие пару месяцев",
+            "points":0,
+            "nextQuestionId":8
+          },
+          {
+            "id":2,
+            "text":"Ближайшие 2 года",
+            "points":0,
+            "nextQuestionId":8
+          },
+          {
+            "id":3,
+            "text":"Сразу после позитивного рассмотрения дела",
+            "points":0.5,
+            "nextQuestionId":8
+          }
+        ],
+        "type":1,
+        "questionImageName":null,
+        "couldBeSkipped":true  
+    },
+    {
+      "id":8,
+      "text": "В каком году начали учиться или работать?",
+        "answers":[
+          {
+            "id":1,
+            "text":"Уже больше 1 месяца",
+            "points":0,
+            "nextQuestionId":9
+          },
+          {
+            "id":2,
+            "text":"Уже больше 1 года",
+            "points":0,
+            "nextQuestionId":9
+          },
+          {
+            "id":3,
+            "text":"Работаю или учусь c 201... года",
+            "points":0,
+            "nextQuestionId":9
+          }
+        ],
+        "type":1,
+        "questionImageName":null,
+        "couldBeSkipped":true  
+    },
+    {
+      "id":9,
+      "text": "Кто из ваших родственников проживает на территории Польши?",
+        "answers":[
+          {
+            "id":1,
+            "text":"Никто",
+            "points":0,
+            "nextQuestionId":14
+          },
+          {
+            "id":2,
+            "text":"Родственники по маме",
+            "points":0.5,
+            "nextQuestionId":12
+          },
+          {
+            "id":3,
+            "text":"Родственники по папе",
+            "points":0.5,
+            "nextQuestionId":12
+          },
+          {
+            "id":4,
+            "text":"Родственники по бабушке/ дедушке",
+            "points":0.5,
+            "nextQuestionId":12
+          }
+        ],
+        "type":0,
+        "questionImageName":null,
+        "couldBeSkipped":false 
+    },
+    {
+      "id":10,
+      "text": "По чьей линии?",
+        "answers":[
+          {
+            "id":1,
+            "text":"Родственники по маме",
+            "points":0,
+            "nextQuestionId":11
+          },
+          {
+            "id":2,
+            "text":"Родственники по папе",
+            "points":0,
+            "nextQuestionId":11
+          },
+          {
+            "id":3,
+            "text":"Родственники по бабушке",
+            "points":0,
+            "nextQuestionId":11
+          },
+          {
+            "id":4,
+            "text":"Родственники по дедушке",
+            "points":0,
+            "nextQuestionId":11
+          }
+        ],
+        "type":1,
+        "questionImageName":null,
+        "couldBeSkipped":true  
+    },
+    {
+      "id":11,
+      "text": "Будут ли они перебираться в Польшу?",
+        "answers":[
+          {
+            "id":1,
+            "text":"Да, я хочу, чтобы моя семья жила на Родине",
+            "points":1,
+            "nextQuestionId":14
+          },
+          {
+            "id":2,
+            "text":"Помогу им перебраться сразу после позитивного решения",
+            "points":0.5,
+            "nextQuestionId":14
+          },
+          {
+            "id":3,
+            "text":"Нет",
+            "points":0,
+            "nextQuestionId":14
+          },
+          {
+            "id":4,
+            "text":"Не знаю, не интересовался",
+            "points":0,
+            "nextQuestionId":14
+          }
+        ],
+        "type":1,
+        "questionImageName":null,
+        "couldBeSkipped":true  
+    },
+    {
+      "id":12,
+      "text": "Есть ли у них польское происхождение?",
+        "answers":[
+          {
+            "id":1,
+            "text":"Да",
+            "points":0.5,
+            "nextQuestionId":13
+          },
+          {
+            "id":2,
+            "text":"Не помню, мы редко общаемся",
+            "points":0,
+            "nextQuestionId":14
+          },
+          {
+            "id":3,
+            "text":"Нет",
+            "points":0,
+            "nextQuestionId":14
+          }
+        ],
+        "type":1,
+        "questionImageName":null,
+        "couldBeSkipped":false  
+    },
+    {
+      "id":13,
+      "text": "По чьей линии?",
+        "answers":[
+          {
+            "id":1,
+            "text":"Родственники по маме/ папе",
+            "points":0,
+            "nextQuestionId":14
+          },
+          {
+            "id":2,
+            "text":"Родственники по дедушке",
+            "points":0,
+            "nextQuestionId":14
+          },
+          {
+            "id":3,
+            "text":"Родственники по бабушке",
+            "points":0,
+            "nextQuestionId":14
+          },
+          {
+            "id":4,
+            "text":"Не помню, мы редко общаемся",
+            "points":0,
+            "nextQuestionId":14
+          }
+        ],
+        "type":1,
+        "questionImageName":null,
+        "couldBeSkipped":true  
+    },
+    {
+      "id":14,
+      "text": "Кто в вашей семье разговаривал или разговаривает на польском языке?",
+        "answers":[
+          {
+            "id":1,
+            "text":"Мама/ папа",
+            "points":2,
+            "nextQuestionId":-1
+          },
+          {
+            "id":2,
+            "text":"Бабушка/ дедушка",
+            "points":1,
+            "nextQuestionId":-1
+          },
+          {
+            "id":3,
+            "text":"Прабабушка/прадедушка",
+            "points":1,
+            "nextQuestionId":-1
+          },
+          {
+            "id":4,
+            "text":"Не помню",
+            "points":0,
+            "nextQuestionId":-1
+          }
+        ],
+        "type":1,
+        "questionImageName":null,
+        "couldBeSkipped":true  
+    }
+  ]
+}
