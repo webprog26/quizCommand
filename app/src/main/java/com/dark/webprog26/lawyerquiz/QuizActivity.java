@@ -81,6 +81,12 @@ public class QuizActivity extends AppCompatActivity implements OnAnswerApprovedL
         mQuiz.setCurrentQuestionId(answer.getNextQuestionId());
         mQuiz.setAnsweredQuestionsCount(mQuiz.getAnsweredQuestionsCount() + 1);
         mQuiz.setScoredPointsCount(mQuiz.getScoredPointsCount() + answer.getPoints());
+
+        String usefulTipText = answer.getReferenceText();
+
+        if(!usefulTipText.equalsIgnoreCase("null")){
+            mQuiz.showUsefulTip(usefulTipText);
+        }
         mQuiz.resume();
     }
 }

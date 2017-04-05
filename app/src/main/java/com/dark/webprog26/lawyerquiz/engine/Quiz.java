@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.dark.webprog26.lawyerquiz.engine.commands.LoadNextQuestionCommand;
 import com.dark.webprog26.lawyerquiz.engine.commands.SaveStatsCommand;
+import com.dark.webprog26.lawyerquiz.engine.commands.ShowUsefulTipCommand;
 import com.dark.webprog26.lawyerquiz.engine.commands.TransformJsonDataToPOJOsCommand;
 import com.dark.webprog26.lawyerquiz.engine.commands.UploadDataToFirebaseDbCommand;
 import com.dark.webprog26.lawyerquiz.engine.events.ReadDataFromJsonEvent;
@@ -74,6 +75,11 @@ public class Quiz {
                                         mCurrentQuestionId,
                                         mAnsweredQuestionsCount,
                                         mScoredPointsCount);
+        mCommand.execute();
+    }
+
+    public void showUsefulTip(String usefulTipText){
+        mCommand = new ShowUsefulTipCommand(usefulTipText, mFragmentManager);
         mCommand.execute();
     }
 
