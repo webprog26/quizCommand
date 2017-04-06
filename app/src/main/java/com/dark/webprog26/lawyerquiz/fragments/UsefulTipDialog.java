@@ -1,5 +1,6 @@
 package com.dark.webprog26.lawyerquiz.fragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -10,6 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.dark.webprog26.lawyerquiz.R;
+import com.dark.webprog26.lawyerquiz.engine.events.GameOverEvent;
+import com.dark.webprog26.lawyerquiz.engine.events.UsefulTipDialogDismissedEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,5 +83,11 @@ public class UsefulTipDialog extends DialogFragment {
                 dismiss();
             }
         });
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        EventBus.getDefault().post(new UsefulTipDialogDismissedEvent());
     }
 }

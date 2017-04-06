@@ -119,12 +119,4 @@
             android:text="@string/resume_quiz"
             android:layout_marginLeft="4dp"/>
     </LinearLayout>
-    <Button
-        android:id="@+id/btnGoToSkippedQuestions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/quizControls"
-        android:layout_marginBottom="80dp"
-        android:text="@string/go_to_skipped_questions"
-        android:visibility="gone"/>
 </RelativeLayout>

@@ -15,4 +15,10 @@
     <string name="go_to_skipped_questions">Go to skipped questions</string>
     <string name="back_to_quiz">Back to quiz</string>
     <string name="useful_tip">Useful tip</string>
+
+    <string name="name">Name:</string>
+    <string name="e_mail">E-mail:</string>
+    <string name="phone_number">Phone number:</string>
+    <string name="what_r_u_interesting_in">What are you interesting in?</string>
+    <string name="send">Send</string>
 </resources>

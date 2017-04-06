@@ -15,12 +15,18 @@ public class SaveStatsCommand implements Command{
     private final long mLastQuestionId;
     private final int mAnsweredQuestionsCount;
     private final double mScoredPoints;
+    private final int mQuizMode;
 
-    public SaveStatsCommand(SharedPreferences sharedPreferences, long lastQuestionId, int answeredQuestionsCount, double scoredPoints) {
+    public SaveStatsCommand(SharedPreferences sharedPreferences,
+                            long lastQuestionId,
+                            int answeredQuestionsCount,
+                            double scoredPoints,
+                            int quizMode) {
         this.mSharedPreferences = sharedPreferences;
         this.mLastQuestionId = lastQuestionId;
         this.mAnsweredQuestionsCount = answeredQuestionsCount;
         this.mScoredPoints = scoredPoints;
+        this.mQuizMode = quizMode;
     }
 
     @Override
@@ -29,5 +35,6 @@ public class SaveStatsCommand implements Command{
         editor.putLong(Quiz.LAST_QUESTION_ID, mLastQuestionId).apply();
         editor.putInt(Quiz.ANSWERED_QUESTIONS_COUNT, mAnsweredQuestionsCount).apply();
         editor.putString(Quiz.SCORED_POINTS_COUNT, String.valueOf(mScoredPoints)).apply();
+        editor.putInt(Quiz.QUIZ_MODE, mQuizMode).apply();
     }
 }

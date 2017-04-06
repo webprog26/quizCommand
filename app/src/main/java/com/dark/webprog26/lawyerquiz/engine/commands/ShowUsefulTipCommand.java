@@ -3,6 +3,7 @@ package com.dark.webprog26.lawyerquiz.engine.commands;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
+import com.dark.webprog26.lawyerquiz.engine.Quiz;
 import com.dark.webprog26.lawyerquiz.fragments.UsefulTipDialog;
 import com.dark.webprog26.lawyerquiz.interfaces.Command;
 

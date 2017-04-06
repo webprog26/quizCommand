@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.dark.webprog26.lawyerquiz.R;
 import com.dark.webprog26.lawyerquiz.engine.events.AnswerRadioButtonPressedEvent;
+import com.dark.webprog26.lawyerquiz.engine.events.QuestionWasSkippedEvent;
 import com.dark.webprog26.lawyerquiz.engine.listeners.AnswersListener;
 import com.dark.webprog26.lawyerquiz.engine.listeners.OnAnswerApprovedListener;
 import com.dark.webprog26.lawyerquiz.engine.models.Answer;
@@ -57,9 +58,6 @@ public class FragmentQuestion extends Fragment {
     Button mBtnSkipQuestion;
     @BindView(R.id.btnResumeQuiz)
     Button mBtnResumeQuestion;
-    @BindView(R.id.btnGoToSkippedQuestions)
-    Button mBtnGoToSkippedQuestions;
-
 
     private OnAnswerApprovedListener mOnAnswerApprovedListener;
 
@@ -114,12 +112,12 @@ public class FragmentQuestion extends Fragment {
         mBtnResumeQuestion.setEnabled(false);
         Bundle args = getArguments();
         if(args != null){
-            Question question = (Question) args.getSerializable(CURRENT_QUESTION);
+            final Question question = (Question) args.getSerializable(CURRENT_QUESTION);
             if(question != null){
                 mTvQuestion.setText(question.getQuestionString());
                 mTvAnswersGiven.setText(getString(R.string.answer_given, args.getInt(ANSWERS_GIVEN_COUNT)));
                 mTvPoints.setText(getString(R.string.points_scored, args.getDouble(SCORED_POINTS_COUNT)));
-                List<Answer> answers = question.getAnswers();
+                final List<Answer> answers = question.getAnswers();
 
                 for(int i = 0; i < answers.size(); i++){
                     if(mAnswersRadioButtons[i].getVisibility() == View.GONE){
@@ -129,6 +127,16 @@ public class FragmentQuestion extends Fragment {
                 }
 
                 mRgAnswers.setOnCheckedChangeListener(new AnswersListener(answers));
+                mBtnSkipQuestion.setEnabled(question.isCouldBeSkipped());
+
+                if(mBtnSkipQuestion.isEnabled()){
+                    mBtnSkipQuestion.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            EventBus.getDefault().post(new QuestionWasSkippedEvent(question, answers.get(0).getNextQuestionId()));
+                        }
+                    });
+                }
             } else {
                 Log.i(FR_QUE_TAG, "question is null");
             }

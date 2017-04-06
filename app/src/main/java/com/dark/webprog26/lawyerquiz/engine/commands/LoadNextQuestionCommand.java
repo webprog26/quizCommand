@@ -75,6 +75,7 @@ public class LoadNextQuestionCommand implements Command {
         if(mNextQuestionId == Question.LAST_QUESTION_ID){
             //We've reached the last question which answers has nextQuestionId = -1
             //Run new GameOverEvent()
+            Log.i(LOAD_TAG, "gameOver");
             EventBus.getDefault().post(new GameOverEvent());
             return;
         }
