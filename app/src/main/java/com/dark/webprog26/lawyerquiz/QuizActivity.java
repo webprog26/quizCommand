@@ -113,16 +113,22 @@ public class QuizActivity extends AppCompatActivity implements OnAnswerApprovedL
             mQuiz.showUsefulTip(usefulTipText);
         }
 
-        mQuiz.setCurrentQuestionId(answer.getNextQuestionId());
+        if(mQuiz.getQuizMode() == Quiz.ARCADE_MODE){
+            mQuiz.setCurrentQuestionId(answer.getNextQuestionId());
+        } else {
+            EventBus.getDefault().post(new DeleteSkippedQuestionIdFromDbEvent(mQuiz.getCurrentQuestionId()));
+        }
 
         Log.i(QUIZ_ACTIVITY_TAG, "in quiz next id is " + mQuiz.getCurrentQuestionId());
+
         mQuiz.resume();
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onUsefulTipDialogDismissedEvent(UsefulTipDialogDismissedEvent usefulTipDialogDismissedEvent){
         mQuiz.setUsefulTipShown(false);
-        if(mQuiz.getCurrentQuestionId() == Question.LAST_QUESTION_ID){
+        if(mQuiz.getCurrentQuestionId() == Question.LAST_QUESTION_ID
+                && mSkippedQuestionsDbProvider.getSkippedQuestionsCount() == 0){
             EventBus.getDefault().post(new ShowBuyFullVersionOfferEvent());
         }
     }
@@ -141,7 +147,7 @@ public class QuizActivity extends AppCompatActivity implements OnAnswerApprovedL
             mQuiz.setQuizMode(Quiz.SKIPPED_QUESTIONS_MODE);
             if(mQuiz.getQuizMode() == Quiz.SKIPPED_QUESTIONS_MODE){
                 mQuiz.setSkippedQuestionsIDs(mSkippedQuestionsDbProvider.getSkippedQuestionsIDs());
-                mQuiz.reset();
+                mQuiz.resume();
             }
         } else {
             EventBus.getDefault().post(new ShowBuyFullVersionOfferEvent());

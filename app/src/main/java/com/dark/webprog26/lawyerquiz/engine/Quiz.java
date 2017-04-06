@@ -18,10 +18,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
-/**
- * Created by webpr on 04.04.2017.
- */
-
 public class Quiz {
 
     private static final String QUIZ_TAG = "Quiz_TAG";
@@ -77,33 +73,23 @@ public class Quiz {
     }
 
     public void resume(){
-        switch (mQuizMode){
-            case ARCADE_MODE:
-                mCommand = new LoadNextQuestionCommand(mCurrentQuestionId,
-                        mAnsweredQuestionsCount,
-                        mScoredPointsCount,
-                        mFragmentManager,
-                        mContainerViewId);
-                break;
-            case SKIPPED_QUESTIONS_MODE:
-                Log.i(QUIZ_TAG, "mSkippedQuestionsIndex < mSkippedQuestionsIDs.length " + String.valueOf(mSkippedQuestionsIndex < mSkippedQuestionsIDs.length));
-                if(mSkippedQuestionsIndex < mSkippedQuestionsIDs.length){
-                    Log.i(QUIZ_TAG, "next index is " + mSkippedQuestionsIndex);
-                    Log.i(QUIZ_TAG, "mSkippedQuestionsIDs.length " + mSkippedQuestionsIDs.length);
-                    setCurrentQuestionId(mSkippedQuestionsIDs[mSkippedQuestionsIndex]);
-                    mSkippedQuestionsIndex++;
-                } else {
-                    setCurrentQuestionId(Question.LAST_QUESTION_ID);
-                    setQuizMode(ARCADE_MODE);
-                }
-                Log.i(QUIZ_TAG, "CurrentQuestionId is " + mCurrentQuestionId);
-                mCommand = new LoadNextQuestionCommand(mCurrentQuestionId,
-                        mAnsweredQuestionsCount,
-                        mScoredPointsCount,
-                        mFragmentManager,
-                        mContainerViewId);
+        Log.i(QUIZ_TAG, "resume()");
+        if(mQuizMode == SKIPPED_QUESTIONS_MODE){
+            if(mSkippedQuestionsIndex < mSkippedQuestionsIDs.length){
+                setCurrentQuestionId(mSkippedQuestionsIDs[mSkippedQuestionsIndex]);
                 mSkippedQuestionsIndex++;
+            } else {
+                setQuizMode(ARCADE_MODE);
+                setCurrentQuestionId(Question.LAST_QUESTION_ID);
+            }
         }
+        Log.i(QUIZ_TAG, "quiz mode " + mQuizMode);
+        Log.i(QUIZ_TAG, "question id " + mCurrentQuestionId);
+        mCommand = new LoadNextQuestionCommand(mCurrentQuestionId,
+                mAnsweredQuestionsCount,
+                mScoredPointsCount,
+                mFragmentManager,
+                mContainerViewId);
         mCommand.execute();
     }
 
@@ -121,8 +107,7 @@ public class Quiz {
             setScoredPointsCount(0);
             setAnsweredQuestionsCount(0);
             setCurrentQuestionId(0);
-        } else {
-            Log.i(QUIZ_TAG, "Got " + mSkippedQuestionsIDs.length + " skipped questions");
+            setSkippedQuestionsIndex(0);
         }
     }
 
@@ -180,7 +165,7 @@ public class Quiz {
         this.mSkippedQuestionsIDs = mSkippedQuestionsIDs;
     }
 
-    private boolean hasNextSkippedQuestion(){
-        return mSkippedQuestionsIDs != null && mSkippedQuestionsIndex < (mSkippedQuestionsIDs.length);
+    private void setSkippedQuestionsIndex(int mSkippedQuestionsIndex) {
+        this.mSkippedQuestionsIndex = mSkippedQuestionsIndex;
     }
 }
