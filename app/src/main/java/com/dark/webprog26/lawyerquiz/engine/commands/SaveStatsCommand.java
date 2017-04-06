@@ -3,10 +3,11 @@ package com.dark.webprog26.lawyerquiz.engine.commands;
 import android.content.SharedPreferences;
 
 import com.dark.webprog26.lawyerquiz.engine.Quiz;
+import com.dark.webprog26.lawyerquiz.engine.models.Question;
 import com.dark.webprog26.lawyerquiz.interfaces.Command;
 
 /**
- * Created by webpr on 04.04.2017.
+ * Saves quiz stats via SharedPreferences class methods
  */
 
 public class SaveStatsCommand implements Command{

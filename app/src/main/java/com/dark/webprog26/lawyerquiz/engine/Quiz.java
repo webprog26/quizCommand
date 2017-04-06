@@ -18,14 +18,23 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
+import static com.dark.webprog26.lawyerquiz.QuizActivity.FIREBASE__DB_HAS_DATA;
+
+/**
+ * Main class of the app engine, which manages quiz modes, preparing, resuming and pausing. In Command design-pattern it plays sender role
+ * and forms concrete {@link Command} instance to perform necessary operation such as load next question, reset quiz, show useful tips etc
+ */
+
 public class Quiz {
 
     private static final String QUIZ_TAG = "Quiz_TAG";
 
+    //this data will be saved if app interrupts it's work
     public static final String LAST_QUESTION_ID = "last_question_id";
     public static final String ANSWERED_QUESTIONS_COUNT = "answered_questions_count";
     public static final String SCORED_POINTS_COUNT = "scored_points_count";
 
+    //Our quiz could work in one of this modes
     public static final String QUIZ_MODE = "current_quiz_mode";
     public static final int ARCADE_MODE = 0;
     public static final int SKIPPED_QUESTIONS_MODE = 1;
@@ -54,24 +63,44 @@ public class Quiz {
         setQuizMode(mSharedPreferences.getInt(QUIZ_MODE, ARCADE_MODE));
     }
 
+    /**
+     * Prepares quiz to be started or resumed.
+     */
     public void prepare(){
-        EventBus.getDefault().post(new ReadDataFromJsonEvent());
+        //Start uploading data to Firebase database if necessary
+        if(!mSharedPreferences.getBoolean(FIREBASE__DB_HAS_DATA, false)) {
+            EventBus.getDefault().post(new ReadDataFromJsonEvent());
+        }
+
+        //Get array of skipped Question instances IDs from android.database.sqlite.SQLiteDatabase if necessary
         if(mQuizMode == SKIPPED_QUESTIONS_MODE){
             EventBus.getDefault().post(new GetSkippedQuestionsIDsFromDbEvent());
         }
     }
 
+    /**
+     * Starts transforming data from String type to POJOs: com.dark.webprog26.lawyerquiz.engine.models.Question
+     * and com.dark.webprog26.lawyerquiz.engine.models.Answer
+     * @param data {@link String}
+     */
     public void transformDataToPOJOs(String data){
         mCommand = new TransformJsonDataToPOJOsCommand(data);
         mCommand.execute();
     }
 
+    /**
+     * Starts uploading data to Firebase database
+     * @param questionsList {@link List}
+     */
     public void uploadDataToFirebaseDB(List<Question> questionsList){
         Log.i(QUIZ_TAG, "uploadDataToFirebaseDB");
         mCommand = new UploadDataToFirebaseDbCommand(questionsList);
         mCommand.execute();
     }
 
+    /**
+     * Resumes quiz. Depending on current quiz mode starts reading next {@link Question} from Firebase database
+     */
     public void resume(){
         Log.i(QUIZ_TAG, "resume()");
         if(mQuizMode == SKIPPED_QUESTIONS_MODE){
@@ -93,6 +122,9 @@ public class Quiz {
         mCommand.execute();
     }
 
+    /**
+     * Starts saving quiz stats
+     */
     public void pause(){
         mCommand = new SaveStatsCommand(mSharedPreferences,
                                         mCurrentQuestionId,
@@ -102,6 +134,9 @@ public class Quiz {
         mCommand.execute();
     }
 
+    /**
+     * Resets quiz stats
+     */
     public void reset(){
         if(mQuizMode == ARCADE_MODE){
             setScoredPointsCount(0);
@@ -111,6 +146,10 @@ public class Quiz {
         }
     }
 
+    /**
+     * Starts useful tip showing
+     * @param usefulTipText {@link String}
+     */
     public void showUsefulTip(String usefulTipText){
         setUsefulTipShown(true);
         mCommand = new ShowUsefulTipCommand(usefulTipText, mFragmentManager);
@@ -155,10 +194,6 @@ public class Quiz {
 
     public void setQuizMode(int mQuizMode) {
         this.mQuizMode = mQuizMode;
-    }
-
-    public long[] getSkippedQuestionsIDs() {
-        return mSkippedQuestionsIDs;
     }
 
     public void setSkippedQuestionsIDs(long[] mSkippedQuestionsIDs) {

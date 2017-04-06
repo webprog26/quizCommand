@@ -5,7 +5,8 @@ import com.dark.webprog26.lawyerquiz.engine.models.Question;
 import java.util.List;
 
 /**
- * Created by webpr on 04.04.2017.
+ * This event takes place when data from .json file has been transformed into POJOs.
+ * Transmits {@link List} of {@link Question} instances to QuizActivity
  */
 
 public class DataHasBeenTransformedToPOJOsEvent {

@@ -11,6 +11,14 @@ public class MainActivity extends AppCompatActivity {
     private static final String GREETINGS_FRAGMENT_TAG = "greetings_fragment_tag";
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        //App entry point
+        //Show splash with logo
+        getWindow().setBackgroundDrawableResource(R.drawable.screen_bg);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

@@ -17,7 +17,7 @@ import java.util.List;
 import static com.dark.webprog26.lawyerquiz.engine.app.FirebaseApplication.FIREBASE_DATABASE_ROOT;
 
 /**
- * Created by webpr on 04.04.2017.
+ * Uploads data to Firebase database
  */
 
 public class UploadDataToFirebaseDbCommand implements Command {

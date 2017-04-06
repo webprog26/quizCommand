@@ -1,10 +1,12 @@
 package com.dark.webprog26.lawyerquiz.engine.events;
 
 /**
- * Created by webpr on 05.04.2017.
+ * This event takes place when {@link com.dark.webprog26.lawyerquiz.fragments.UsefulTipDialog} has been dismissed.
+ * Notifies QuizActivity
  */
 
 public class UsefulTipDialogDismissedEvent {
+
     public UsefulTipDialogDismissedEvent() {
     }
 }

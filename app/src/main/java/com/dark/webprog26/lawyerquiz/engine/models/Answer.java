@@ -3,14 +3,10 @@ package com.dark.webprog26.lawyerquiz.engine.models;
 import java.io.Serializable;
 
 /**
- * Created by webpr on 10.03.2017.
+ * Answer POJO class
  */
 
 public class Answer implements Serializable{
-
-    /**
-     * Answer POJO class
-     */
 
     //Fields declared as public. It hurts the encapsulation principle,
     // but necessary to fill them with values directly from FirebaseDatabase

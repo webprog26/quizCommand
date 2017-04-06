@@ -39,6 +39,13 @@ public class BuyFullVersionActivity extends AppCompatActivity implements View.On
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        //setting default quiz background instead of logo
+        getWindow().setBackgroundDrawableResource(R.drawable.screen_bg);
+    }
+
+    @Override
     public void onClick(View v) {
         notifyGameOver();
         finish();

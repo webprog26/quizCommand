@@ -8,7 +8,7 @@ import com.dark.webprog26.lawyerquiz.fragments.UsefulTipDialog;
 import com.dark.webprog26.lawyerquiz.interfaces.Command;
 
 /**
- * Created by webpr on 05.04.2017.
+ * Shows useful tip depending on its existing in Nature
  */
 
 public class ShowUsefulTipCommand implements Command {

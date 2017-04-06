@@ -15,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by webpr on 04.04.2017.
+ * {@link Fragment} with greetings text and button to start the quiz
  */
 
 public class FragmentGreetings extends Fragment {

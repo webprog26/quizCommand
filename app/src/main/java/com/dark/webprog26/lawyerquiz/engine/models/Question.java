@@ -4,14 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by webpr on 15.03.2017.
+ * Question POJO class
  */
 
 public class Question implements Serializable{
-
-    /**
-     * Question POJO class
-     */
 
     //Questions types
     public static final int REQUIRED_QUESTION = 0;

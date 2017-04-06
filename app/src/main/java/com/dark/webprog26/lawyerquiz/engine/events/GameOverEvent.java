@@ -1,7 +1,8 @@
 package com.dark.webprog26.lawyerquiz.engine.events;
 
 /**
- * Created by webpr on 04.04.2017.
+ * This event takes place when user reaches the end of the quiz.
+ * Notifies QuizActivity
  */
 
 public class GameOverEvent {

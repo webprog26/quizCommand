@@ -11,7 +11,8 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.List;
 
 /**
- * Created by webpr on 04.04.2017.
+ * This class provides answer-radiobuttons state changes handling.
+ * Notifies {@link com.dark.webprog26.lawyerquiz.fragments.FragmentQuestion} via {@link AnswerRadioButtonPressedEvent}
  */
 
 public class AnswersListener implements RadioGroup.OnCheckedChangeListener {
@@ -24,7 +25,7 @@ public class AnswersListener implements RadioGroup.OnCheckedChangeListener {
 
     @Override
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-        if(checkedId != -1){
+        if(checkedId != -1){//no radiobuttons checked. Could throw NPE
             EventBus.getDefault().post(new AnswerRadioButtonPressedEvent(mAnswers.get(group.indexOfChild(group.findViewById(checkedId)))));
         }
     }

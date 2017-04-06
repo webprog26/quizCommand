@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by webpr on 04.04.2017.
+ * Transforms json-data to POJOs
  */
 
 public class TransformJsonDataToPOJOsCommand implements Command {

@@ -1,8 +1,12 @@
 package com.dark.webprog26.lawyerquiz.engine.events;
 
 /**
- * Created by webpr on 05.04.2017.
+ * This event takes place when there are skipped questions after user reached the end of the quiz.
+ * Transmits count of them to QuizActivity
  */
 
 public class CountSkippedQuestionsEvent {
+
+    public CountSkippedQuestionsEvent() {
+    }
 }

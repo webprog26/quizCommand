@@ -10,14 +10,11 @@ import com.dark.webprog26.lawyerquiz.engine.skipped_db.db.SkippedQuestionsDbHelp
 import java.lang.ref.WeakReference;
 
 /**
- * Created by webpr on 05.04.2017.
+ * Manages skipped {@link com.dark.webprog26.lawyerquiz.engine.models.Question} instances
+ * {@link android.database.sqlite.SQLiteDatabase} CRUD operations
  */
 
 public class SkippedQuestionsDbProvider {
-
-    /**
-     * Manages {@link android.database.sqlite.SQLiteDatabase} CRUD operations
-     */
 
     private static final String TAG = "DbProvider";
 

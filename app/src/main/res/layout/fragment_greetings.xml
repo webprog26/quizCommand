@@ -15,5 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Begin"
+        android:background="@drawable/controls_selector"
+        android:theme="@style/ControlsButtons"
         android:layout_alignParentBottom="true"/>
 </RelativeLayout>

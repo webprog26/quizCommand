@@ -3,10 +3,13 @@ package com.dark.webprog26.lawyerquiz.engine.events;
 import com.dark.webprog26.lawyerquiz.engine.models.Answer;
 
 /**
- * Created by webpr on 04.04.2017.
+ * This event takes place when answer-radiobutton has been pressed.
+ * Transmits chosen Answer to {@link com.dark.webprog26.lawyerquiz.fragments.FragmentQuestion}
  */
 
 public class AnswerRadioButtonPressedEvent {
+
+
 
     private final Answer mCheckedAnswer;
 

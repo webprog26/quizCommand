@@ -1,7 +1,8 @@
 package com.dark.webprog26.lawyerquiz.engine.events;
 
 /**
- * Created by webpr on 04.04.2017.
+ * This event takes place when data from .json file has been uploaded to Firebase database.
+ * Notifies QuizActivity
  */
 
 public class DataHasBeenUploadedToFirebaseDbEvent {

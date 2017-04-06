@@ -1,7 +1,8 @@
 package com.dark.webprog26.lawyerquiz.engine.events;
 
 /**
- * Created by webpr on 04.04.2017.
+ * This event takes place when data from .json file has been read.
+ * Transmits read {@link String} of data to QuizActivity
  */
 
 public class JsonDataFileHasBeenReadEvent {

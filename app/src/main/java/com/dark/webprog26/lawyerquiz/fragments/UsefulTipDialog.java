@@ -20,14 +20,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by webpr on 05.04.2017.
+ * This class shows some useful tips, if such action is envisaged by the quiz logic
  */
 
 public class UsefulTipDialog extends DialogFragment {
-
-    /**
-     * This class shows some useful tips, if such action is envisaged by the quiz logic
-     */
 
     private static final String TAG = "UsefulTipDialog";
     public static final String USEFUL_TIP_TEXT = "useful_tip_text";

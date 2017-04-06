@@ -1,7 +1,8 @@
 package com.dark.webprog26.lawyerquiz.engine.events;
 
 /**
- * Created by webpr on 05.04.2017.
+ * This event takes place when previously skipped {@link com.dark.webprog26.lawyerquiz.engine.models.Question}
+ * has been passed. Notifies QuizActivity to delete it from {@link android.database.sqlite.SQLiteDatabase}
  */
 
 public class DeleteSkippedQuestionIdFromDbEvent {

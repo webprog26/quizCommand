@@ -3,10 +3,12 @@ package com.dark.webprog26.lawyerquiz.engine.events;
 import com.dark.webprog26.lawyerquiz.engine.models.Question;
 
 /**
- * Created by webpr on 05.04.2017.
+ * This event takes place when {@link Question} was skipped.
+ * Transmits skipped {@link Question} instance and next question id to QuizActivity
  */
 
 public class QuestionWasSkippedEvent {
+
     private final Question mSkippedQuestion;
     private final long mNextQuestionId;
 

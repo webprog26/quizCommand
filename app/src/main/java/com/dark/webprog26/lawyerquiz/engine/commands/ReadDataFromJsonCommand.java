@@ -11,14 +11,10 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Created by webpr on 04.04.2017.
+ * Reads data from .json file
  */
 
 public class ReadDataFromJsonCommand implements Command {
-
-    /**
-     * Reads data from .json file
-     */
 
     private static final String PROPER_UTF_8_ENCODING = "UTF-8";
 
@@ -35,6 +31,12 @@ public class ReadDataFromJsonCommand implements Command {
         EventBus.getDefault().post(new JsonDataFileHasBeenReadEvent(loadJSONFromAsset(mAssetManager, JSON_FILE_NAME)));
     }
 
+    /**
+     * Reads .json file directly from assets directory and transform it into the {@link String}
+     * @param assetManager {@link AssetManager}
+     * @param jsonFilename {@link String}
+     * @return {@link String}
+     */
     private String loadJSONFromAsset(AssetManager assetManager, String jsonFilename) {
         String json;
         try {

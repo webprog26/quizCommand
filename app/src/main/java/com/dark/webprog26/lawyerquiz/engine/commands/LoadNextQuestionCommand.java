@@ -23,7 +23,7 @@ import java.util.List;
 import static com.dark.webprog26.lawyerquiz.engine.app.FirebaseApplication.FIREBASE_DATABASE_ROOT;
 
 /**
- * Created by webpr on 04.04.2017.
+ * Loads next quiz question from Firebase database
  */
 
 public class LoadNextQuestionCommand implements Command {
@@ -109,7 +109,7 @@ public class LoadNextQuestionCommand implements Command {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                //
             }
         });
     }

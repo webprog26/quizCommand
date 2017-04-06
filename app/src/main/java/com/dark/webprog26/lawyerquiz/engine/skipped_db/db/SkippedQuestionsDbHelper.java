@@ -5,14 +5,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by webpr on 05.04.2017.
+ * Creates Skipped Questions {@link SQLiteDatabase}
  */
 
 public class SkippedQuestionsDbHelper extends SQLiteOpenHelper {
-
-    /**
-     * Creates Skipped Qestions {@link SQLiteDatabase}
-     */
 
     private static final String DB_NAME = "skipped_questions_db";
     private static final int DB_VERSION = 1;

@@ -1,7 +1,7 @@
 package com.dark.webprog26.lawyerquiz.interfaces;
 
 /**
- * Created by webpr on 04.04.2017.
+ * Part of the Command design-pattern. Simplifies app different actions performing
  */
 
 public interface Command {

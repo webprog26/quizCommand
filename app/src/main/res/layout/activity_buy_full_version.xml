@@ -76,14 +76,18 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginRight="8dp"
-                    android:text="@string/send"/>
+                    android:text="@string/send"
+                    android:background="@drawable/controls_selector"
+                    android:theme="@style/ControlsButtons"/>
             </LinearLayout>
             <Button
                 android:id="@+id/btnBuyFullVersion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:text="@string/buy_full_version_offer"/>
+                android:text="@string/buy_full_version_offer"
+                android:background="@drawable/controls_selector"
+                android:theme="@style/ControlsButtons"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

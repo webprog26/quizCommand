@@ -32,7 +32,9 @@ import butterknife.BindViews;
 import butterknife.ButterKnife;
 
 /**
- * Created by webpr on 04.04.2017.
+ * {@link Fragment} which provides single {@link Question} and its answers presentation,
+ * handles anaswering and skipping questions, interacts with {@link com.dark.webprog26.lawyerquiz.QuizActivity}
+ * via {@link OnAnswerApprovedListener}
  */
 
 public class FragmentQuestion extends Fragment {
@@ -75,6 +77,13 @@ public class FragmentQuestion extends Fragment {
         mOnAnswerApprovedListener = null;
     }
 
+    /**
+     * Returns FragmentQuestion isntance containing data to resume the quiz
+     * @param question {@link Question}
+     * @param answersGiven int
+     * @param scoredPoints int
+     * @return FragmentQuestion
+     */
     public static FragmentQuestion newInstance(Question question, int answersGiven, double scoredPoints){
         Bundle args = new Bundle();
         args.putSerializable(CURRENT_QUESTION, question);
@@ -145,6 +154,11 @@ public class FragmentQuestion extends Fragment {
         }
     }
 
+    /**
+     * Handles {@link AnswerRadioButtonPressedEvent}. Transmits chosen {@link Answer} to {@link com.dark.webprog26.lawyerquiz.QuizActivity}
+     * via {@link OnAnswerApprovedListener}
+     * @param answerRadioButtonPressedEvent {@link AnswerRadioButtonPressedEvent}
+     */
     @Subscribe (threadMode = ThreadMode.MAIN)
     public void onAnswerRadioButtonPressedEvent(final AnswerRadioButtonPressedEvent answerRadioButtonPressedEvent){
         mBtnResumeQuestion.setEnabled(true);
