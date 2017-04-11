@@ -3,7 +3,7 @@ package com.dark.webprog26.lawyerquiz.engine.commands;
 import android.content.res.AssetManager;
 
 import com.dark.webprog26.lawyerquiz.engine.events.JsonDataFileHasBeenReadEvent;
-import com.dark.webprog26.lawyerquiz.interfaces.Command;
+import com.dark.webprog26.lawyerquiz.engine.interfaces.Command;
 
 import org.greenrobot.eventbus.EventBus;
 

@@ -5,7 +5,7 @@ import android.util.Log;
 import com.dark.webprog26.lawyerquiz.engine.events.DataHasBeenTransformedToPOJOsEvent;
 import com.dark.webprog26.lawyerquiz.engine.models.Answer;
 import com.dark.webprog26.lawyerquiz.engine.models.Question;
-import com.dark.webprog26.lawyerquiz.interfaces.Command;
+import com.dark.webprog26.lawyerquiz.engine.interfaces.Command;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;

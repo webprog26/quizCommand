@@ -6,7 +6,7 @@ import android.util.Log;
 import com.dark.webprog26.lawyerquiz.engine.app.FirebaseApplication;
 import com.dark.webprog26.lawyerquiz.engine.events.DataHasBeenUploadedToFirebaseDbEvent;
 import com.dark.webprog26.lawyerquiz.engine.models.Question;
-import com.dark.webprog26.lawyerquiz.interfaces.Command;
+import com.dark.webprog26.lawyerquiz.engine.interfaces.Command;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

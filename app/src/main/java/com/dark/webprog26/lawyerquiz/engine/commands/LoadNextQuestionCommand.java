@@ -8,7 +8,7 @@ import com.dark.webprog26.lawyerquiz.engine.events.GameOverEvent;
 import com.dark.webprog26.lawyerquiz.engine.models.Answer;
 import com.dark.webprog26.lawyerquiz.engine.models.Question;
 import com.dark.webprog26.lawyerquiz.fragments.FragmentQuestion;
-import com.dark.webprog26.lawyerquiz.interfaces.Command;
+import com.dark.webprog26.lawyerquiz.engine.interfaces.Command;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -68,6 +68,7 @@ public class LoadNextQuestionCommand implements Command {
 
     @Override
     public void execute() {
+        Log.i(LOAD_TAG, "execute");
         getQuestionFromFirebaseDb();
     }
 

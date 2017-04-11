@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -46,6 +47,8 @@ public class FragmentQuestion extends Fragment {
     public static final String SCORED_POINTS_COUNT = "scored_points_count";
 
     //Initializing GUI
+    @BindView(R.id.pbQuestionIsLoading)
+    ProgressBar mPbQuestionIsLoading;
     @BindViews({R.id.btnFirst, R.id.btnSecond, R.id.btnThird, R.id.btnFourth})
     RadioButton[] mAnswersRadioButtons;
     @BindView(R.id.rgAnswers)
@@ -123,6 +126,11 @@ public class FragmentQuestion extends Fragment {
         if(args != null){
             final Question question = (Question) args.getSerializable(CURRENT_QUESTION);
             if(question != null){
+
+                if(mPbQuestionIsLoading.getVisibility() == View.VISIBLE){
+                    mPbQuestionIsLoading.setVisibility(View.GONE);
+                }
+
                 mTvQuestion.setText(question.getQuestionString());
                 mTvAnswersGiven.setText(getString(R.string.answer_given, args.getInt(ANSWERS_GIVEN_COUNT)));
                 mTvPoints.setText(getString(R.string.points_scored, args.getDouble(SCORED_POINTS_COUNT)));

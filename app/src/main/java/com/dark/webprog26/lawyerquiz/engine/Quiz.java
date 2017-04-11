@@ -12,7 +12,10 @@ import com.dark.webprog26.lawyerquiz.engine.commands.UploadDataToFirebaseDbComma
 import com.dark.webprog26.lawyerquiz.engine.events.GetSkippedQuestionsIDsFromDbEvent;
 import com.dark.webprog26.lawyerquiz.engine.events.ReadDataFromJsonEvent;
 import com.dark.webprog26.lawyerquiz.engine.models.Question;
-import com.dark.webprog26.lawyerquiz.interfaces.Command;
+import com.dark.webprog26.lawyerquiz.engine.interfaces.Command;
+import com.dark.webprog26.lawyerquiz.engine.modes.ArcadeMode;
+import com.dark.webprog26.lawyerquiz.engine.modes.QuizMode;
+import com.dark.webprog26.lawyerquiz.engine.modes.SkippedQuestionsMode;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -49,9 +52,11 @@ public class Quiz {
     private int mContainerViewId;
     private Command mCommand;
     private boolean isUsefulTipShown = false;
-    private int mQuizMode;
+    private int mQuizModeType;
     private long[] mSkippedQuestionsIDs;
     private int mSkippedQuestionsIndex = 0;
+
+    private QuizMode quizMode;
 
     public Quiz(SharedPreferences sharedPreferences, FragmentManager fragmentManager, int containerViewId) {
         this.mSharedPreferences = sharedPreferences;
@@ -73,7 +78,7 @@ public class Quiz {
         }
 
         //Get array of skipped Question instances IDs from android.database.sqlite.SQLiteDatabase if necessary
-        if(mQuizMode == SKIPPED_QUESTIONS_MODE){
+        if(mQuizModeType == SKIPPED_QUESTIONS_MODE){
             EventBus.getDefault().post(new GetSkippedQuestionsIDsFromDbEvent());
         }
     }
@@ -103,23 +108,7 @@ public class Quiz {
      */
     public void resume(){
         Log.i(QUIZ_TAG, "resume()");
-        if(mQuizMode == SKIPPED_QUESTIONS_MODE){
-            if(mSkippedQuestionsIndex < mSkippedQuestionsIDs.length){
-                setCurrentQuestionId(mSkippedQuestionsIDs[mSkippedQuestionsIndex]);
-                mSkippedQuestionsIndex++;
-            } else {
-                setQuizMode(ARCADE_MODE);
-                setCurrentQuestionId(Question.LAST_QUESTION_ID);
-            }
-        }
-        Log.i(QUIZ_TAG, "quiz mode " + mQuizMode);
-        Log.i(QUIZ_TAG, "question id " + mCurrentQuestionId);
-        mCommand = new LoadNextQuestionCommand(mCurrentQuestionId,
-                mAnsweredQuestionsCount,
-                mScoredPointsCount,
-                mFragmentManager,
-                mContainerViewId);
-        mCommand.execute();
+        quizMode.resume();
     }
 
     /**
@@ -130,7 +119,7 @@ public class Quiz {
                                         mCurrentQuestionId,
                                         mAnsweredQuestionsCount,
                                         mScoredPointsCount,
-                                        mQuizMode);
+                mQuizModeType);
         mCommand.execute();
     }
 
@@ -138,7 +127,8 @@ public class Quiz {
      * Resets quiz stats
      */
     public void reset(){
-        if(mQuizMode == ARCADE_MODE){
+        Log.i(QUIZ_TAG, "reset() quizMode " + getQuizMode());
+        if(mQuizModeType == ARCADE_MODE){
             setScoredPointsCount(0);
             setAnsweredQuestionsCount(0);
             setCurrentQuestionId(0);
@@ -189,11 +179,21 @@ public class Quiz {
     }
 
     public int getQuizMode() {
-        return mQuizMode;
+        return mQuizModeType;
     }
 
-    public void setQuizMode(int mQuizMode) {
-        this.mQuizMode = mQuizMode;
+    public void setQuizMode(int quizMode) {
+        switch (quizMode){
+            case ARCADE_MODE:
+                this.quizMode = new ArcadeMode(this);
+                Log.i(QUIZ_TAG, "quiz mode is ArcadeMode");
+                break;
+            case SKIPPED_QUESTIONS_MODE:
+                Log.i(QUIZ_TAG, "quiz mode is SkippedQuestionsMode");
+                this.quizMode = new SkippedQuestionsMode(this);
+                break;
+        }
+        this.mQuizModeType = quizMode;
     }
 
     public void setSkippedQuestionsIDs(long[] mSkippedQuestionsIDs) {
@@ -202,5 +202,17 @@ public class Quiz {
 
     private void setSkippedQuestionsIndex(int mSkippedQuestionsIndex) {
         this.mSkippedQuestionsIndex = mSkippedQuestionsIndex;
+    }
+
+    public long[] getSkippedQuestionsIDs() {
+        return mSkippedQuestionsIDs;
+    }
+
+    public FragmentManager getFragmentManager() {
+        return mFragmentManager;
+    }
+
+    public int getContainerViewId() {
+        return mContainerViewId;
     }
 }

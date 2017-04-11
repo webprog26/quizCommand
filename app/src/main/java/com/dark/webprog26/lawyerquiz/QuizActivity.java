@@ -6,6 +6,8 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.dark.webprog26.lawyerquiz.engine.commands.ReadDataFromJsonCommand;
 import com.dark.webprog26.lawyerquiz.engine.Quiz;
@@ -29,11 +31,17 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class QuizActivity extends AppCompatActivity implements OnAnswerApprovedListener{
 
     private static final String QUIZ_ACTIVITY_TAG = "QuizActivity_TAG";
 
     public static final String FIREBASE__DB_HAS_DATA = "firebase_db_has_data";
+
+    @BindView(R.id.pbQuizIsLoading)
+    ProgressBar mPbQuizIsLoading;
 
     private Quiz mQuiz;
     private SkippedQuestionsDbProvider mSkippedQuestionsDbProvider;
@@ -43,6 +51,7 @@ public class QuizActivity extends AppCompatActivity implements OnAnswerApprovedL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+        ButterKnife.bind(this);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mSkippedQuestionsDbProvider = new SkippedQuestionsDbProvider(this);
         mQuiz = new Quiz(mSharedPreferences,
@@ -71,8 +80,11 @@ public class QuizActivity extends AppCompatActivity implements OnAnswerApprovedL
             Log.i(QUIZ_ACTIVITY_TAG, "onResume. question id is " + mQuiz.getCurrentQuestionId());
             mQuiz.reset();
         }
-        //resume quiz
-        mQuiz.resume();
+        //hide progress bar and resume the quiz
+        hideProgressBar();
+        if(mQuiz.getQuizMode() == Quiz.ARCADE_MODE || mQuiz.getSkippedQuestionsIDs() != null) {
+            mQuiz.resume();
+        }
     }
 
     @Override
@@ -129,6 +141,7 @@ public class QuizActivity extends AppCompatActivity implements OnAnswerApprovedL
     public void onDataHasBeenUploadedToFirebaseDbEvent(DataHasBeenUploadedToFirebaseDbEvent dataHasBeenUploadedToFirebaseDbEvent){
         Log.i(QUIZ_ACTIVITY_TAG, "onDataHasBeenUploadedToFirebaseDbEvent");
         mSharedPreferences.edit().putBoolean(FIREBASE__DB_HAS_DATA, true).apply();
+        //hide progress bar and resume the quiz
         mQuiz.resume();
     }
 
@@ -150,13 +163,14 @@ public class QuizActivity extends AppCompatActivity implements OnAnswerApprovedL
             //in arcade mode we should set next question id depending on the Answer user chose
             mQuiz.setCurrentQuestionId(answer.getNextQuestionId());
         } else {
+            Log.i(QUIZ_ACTIVITY_TAG, "deleting from SQLiteDb question with id  " + mQuiz.getCurrentQuestionId());
             //in skipped questions mode we should delete passed question id from skipped questions IDs database
             EventBus.getDefault().post(new DeleteSkippedQuestionIdFromDbEvent(mQuiz.getCurrentQuestionId()));
         }
 
         Log.i(QUIZ_ACTIVITY_TAG, "in quiz next id is " + mQuiz.getCurrentQuestionId());
         //resume the quiz
-        mQuiz.resume();
+            mQuiz.resume();
     }
 
     /**
@@ -265,5 +279,14 @@ public class QuizActivity extends AppCompatActivity implements OnAnswerApprovedL
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onDeleteSkippedQuestionIdFromDbEvent(DeleteSkippedQuestionIdFromDbEvent deleteSkippedQuestionIdFromDbEvent){
         mSkippedQuestionsDbProvider.deleteSkippedQuestionIdFromDb(deleteSkippedQuestionIdFromDbEvent.getId());
+    }
+
+    /**
+     * Hides quiz loading progress bar
+     */
+    private void hideProgressBar(){
+        if(mPbQuizIsLoading.getVisibility() == View.VISIBLE){
+            mPbQuizIsLoading.setVisibility(View.GONE);
+        }
     }
 }
