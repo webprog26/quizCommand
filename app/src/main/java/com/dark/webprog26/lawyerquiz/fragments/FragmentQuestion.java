@@ -41,7 +41,6 @@ import butterknife.ButterKnife;
 public class FragmentQuestion extends Fragment {
 
     private static final String FR_QUE_TAG = "fr_que_tag";
-
     public static final String CURRENT_QUESTION = "current_question";
     public static final String ANSWERS_GIVEN_COUNT = "answers_given_count";
     public static final String SCORED_POINTS_COUNT = "scored_points_count";

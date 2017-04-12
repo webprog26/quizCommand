@@ -82,7 +82,8 @@ public class QuizActivity extends AppCompatActivity implements OnAnswerApprovedL
         }
         //hide progress bar and resume the quiz
         hideProgressBar();
-        if(mQuiz.getQuizMode() == Quiz.ARCADE_MODE || mQuiz.getSkippedQuestionsIDs() != null) {
+        if((mQuiz.getQuizMode() == Quiz.ARCADE_MODE && mSharedPreferences.getBoolean(FIREBASE__DB_HAS_DATA, false)) || mQuiz.getSkippedQuestionsIDs() != null) {
+            Log.i(QUIZ_ACTIVITY_TAG, "Resume in onResume()");
             mQuiz.resume();
         }
     }
