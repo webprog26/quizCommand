@@ -107,29 +107,4 @@
                 android:background="@drawable/answer_bg"/>
         </RadioGroup>
     </ScrollView>
-    <LinearLayout
-        android:id="@+id/quizControls"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
-        <Button
-            android:id="@+id/btnSkipQuestion"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/skip_question"
-            android:layout_marginRight="4dp"
-            android:background="@drawable/controls_selector"
-            android:theme="@style/ControlsButtons"/>
-        <Button
-            android:id="@+id/btnResumeQuiz"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/resume_quiz"
-            android:layout_marginLeft="4dp"
-            android:background="@drawable/controls_selector"
-            android:theme="@style/ControlsButtons"/>
-    </LinearLayout>
 </RelativeLayout>

@@ -14,4 +14,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
+    <FrameLayout
+        android:id="@android:id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/quizControls"/>
+    <LinearLayout
+        android:id="@+id/quizControls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        style="?android:attr/buttonBarStyle">
+        <Button
+            android:id="@+id/btnSkipQuestion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/skip_question"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/controls_selector"
+            android:theme="@style/ControlsButtons"
+            style="?android:attr/buttonBarButtonStyle"/>
+        <Button
+            android:id="@+id/btnResumeQuiz"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/resume_quiz"
+            android:layout_marginLeft="4dp"
+            android:background="@drawable/controls_selector"
+            android:theme="@style/ControlsButtons"
+            style="?android:attr/buttonBarButtonStyle"
+            />
+    </LinearLayout>
 </RelativeLayout>

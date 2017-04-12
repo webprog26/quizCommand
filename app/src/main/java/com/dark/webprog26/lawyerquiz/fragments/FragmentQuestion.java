@@ -58,10 +58,6 @@ public class FragmentQuestion extends Fragment {
     TextView mTvAnswersGiven;
     @BindView(R.id.tvPoints)
     TextView mTvPoints;
-    @BindView(R.id.btnSkipQuestion)
-    Button mBtnSkipQuestion;
-    @BindView(R.id.btnResumeQuiz)
-    Button mBtnResumeQuestion;
 
     private OnAnswerApprovedListener mOnAnswerApprovedListener;
 
@@ -96,18 +92,6 @@ public class FragmentQuestion extends Fragment {
         return fragmentQuestion;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        EventBus.getDefault().unregister(this);
-        super.onStop();
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -119,8 +103,8 @@ public class FragmentQuestion extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mBtnSkipQuestion.setEnabled(false);
-        mBtnResumeQuestion.setEnabled(false);
+//        mBtnSkipQuestion.setEnabled(false);
+//        mBtnResumeQuestion.setEnabled(false);
         Bundle args = getArguments();
         if(args != null){
             final Question question = (Question) args.getSerializable(CURRENT_QUESTION);
@@ -143,16 +127,16 @@ public class FragmentQuestion extends Fragment {
                 }
 
                 mRgAnswers.setOnCheckedChangeListener(new AnswersListener(answers));
-                mBtnSkipQuestion.setEnabled(question.isCouldBeSkipped());
+//                mBtnSkipQuestion.setEnabled(question.isCouldBeSkipped());
 
-                if(mBtnSkipQuestion.isEnabled()){
-                    mBtnSkipQuestion.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            EventBus.getDefault().post(new QuestionWasSkippedEvent(question, answers.get(0).getNextQuestionId()));
-                        }
-                    });
-                }
+//                if(mBtnSkipQuestion.isEnabled()){
+//                    mBtnSkipQuestion.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            EventBus.getDefault().post(new QuestionWasSkippedEvent(question, answers.get(0).getNextQuestionId()));
+//                        }
+//                    });
+//                }
             } else {
                 Log.i(FR_QUE_TAG, "question is null");
             }
@@ -161,20 +145,5 @@ public class FragmentQuestion extends Fragment {
         }
     }
 
-    /**
-     * Handles {@link AnswerRadioButtonPressedEvent}. Transmits chosen {@link Answer} to {@link com.dark.webprog26.lawyerquiz.QuizActivity}
-     * via {@link OnAnswerApprovedListener}
-     * @param answerRadioButtonPressedEvent {@link AnswerRadioButtonPressedEvent}
-     */
-    @Subscribe (threadMode = ThreadMode.MAIN)
-    public void onAnswerRadioButtonPressedEvent(final AnswerRadioButtonPressedEvent answerRadioButtonPressedEvent){
-        mBtnResumeQuestion.setEnabled(true);
-        mBtnResumeQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mOnAnswerApprovedListener.onAnswerApproved(answerRadioButtonPressedEvent.getCheckedAnswer());
-                mBtnResumeQuestion.setEnabled(false);
-            }
-        });
-    }
+
 }

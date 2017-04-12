@@ -7,10 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.dark.webprog26.lawyerquiz.engine.commands.ReadDataFromJsonCommand;
 import com.dark.webprog26.lawyerquiz.engine.Quiz;
+import com.dark.webprog26.lawyerquiz.engine.events.AnswerRadioButtonPressedEvent;
 import com.dark.webprog26.lawyerquiz.engine.events.CountSkippedQuestionsEvent;
 import com.dark.webprog26.lawyerquiz.engine.events.DataHasBeenTransformedToPOJOsEvent;
 import com.dark.webprog26.lawyerquiz.engine.events.DataHasBeenUploadedToFirebaseDbEvent;
@@ -42,6 +44,10 @@ public class QuizActivity extends AppCompatActivity implements OnAnswerApprovedL
 
     @BindView(R.id.pbQuizIsLoading)
     ProgressBar mPbQuizIsLoading;
+    @BindView(R.id.btnSkipQuestion)
+    Button mBtnSkipQuestion;
+    @BindView(R.id.btnResumeQuiz)
+    Button mBtnResumeQuestion;
 
     private Quiz mQuiz;
     private SkippedQuestionsDbProvider mSkippedQuestionsDbProvider;
@@ -52,11 +58,12 @@ public class QuizActivity extends AppCompatActivity implements OnAnswerApprovedL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
         ButterKnife.bind(this);
+        mBtnResumeQuestion.setEnabled(false);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mSkippedQuestionsDbProvider = new SkippedQuestionsDbProvider(this);
         mQuiz = new Quiz(mSharedPreferences,
                             getSupportFragmentManager(),
-                            R.id.activity_quiz);
+                            android.R.id.content);
     }
 
     @Override
@@ -149,29 +156,29 @@ public class QuizActivity extends AppCompatActivity implements OnAnswerApprovedL
     @Override
     public void onAnswerApproved(Answer answer) {
         //update quiz stats
-        mQuiz.setAnsweredQuestionsCount(mQuiz.getAnsweredQuestionsCount() + 1);
-        mQuiz.setScoredPointsCount(mQuiz.getScoredPointsCount() + answer.getPoints());
-
-        //getting useful tip text
-        String usefulTipText = answer.getReferenceText();
-
-        if(!usefulTipText.equalsIgnoreCase("null")){
-            //useful exists and should be shown
-            mQuiz.showUsefulTip(usefulTipText);
-        }
-
-        if(mQuiz.getQuizMode() == Quiz.ARCADE_MODE){
-            //in arcade mode we should set next question id depending on the Answer user chose
-            mQuiz.setCurrentQuestionId(answer.getNextQuestionId());
-        } else {
-            Log.i(QUIZ_ACTIVITY_TAG, "deleting from SQLiteDb question with id  " + mQuiz.getCurrentQuestionId());
-            //in skipped questions mode we should delete passed question id from skipped questions IDs database
-            EventBus.getDefault().post(new DeleteSkippedQuestionIdFromDbEvent(mQuiz.getCurrentQuestionId()));
-        }
-
-        Log.i(QUIZ_ACTIVITY_TAG, "in quiz next id is " + mQuiz.getCurrentQuestionId());
-        //resume the quiz
-            mQuiz.resume();
+//        mQuiz.setAnsweredQuestionsCount(mQuiz.getAnsweredQuestionsCount() + 1);
+//        mQuiz.setScoredPointsCount(mQuiz.getScoredPointsCount() + answer.getPoints());
+//
+//        //getting useful tip text
+//        String usefulTipText = answer.getReferenceText();
+//
+//        if(!usefulTipText.equalsIgnoreCase("null")){
+//            //useful exists and should be shown
+//            mQuiz.showUsefulTip(usefulTipText);
+//        }
+//
+//        if(mQuiz.getQuizMode() == Quiz.ARCADE_MODE){
+//            //in arcade mode we should set next question id depending on the Answer user chose
+//            mQuiz.setCurrentQuestionId(answer.getNextQuestionId());
+//        } else {
+//            Log.i(QUIZ_ACTIVITY_TAG, "deleting from SQLiteDb question with id  " + mQuiz.getCurrentQuestionId());
+//            //in skipped questions mode we should delete passed question id from skipped questions IDs database
+//            EventBus.getDefault().post(new DeleteSkippedQuestionIdFromDbEvent(mQuiz.getCurrentQuestionId()));
+//        }
+//
+//        Log.i(QUIZ_ACTIVITY_TAG, "in quiz next id is " + mQuiz.getCurrentQuestionId());
+//        //resume the quiz
+//            mQuiz.resume();
     }
 
     /**
@@ -280,6 +287,46 @@ public class QuizActivity extends AppCompatActivity implements OnAnswerApprovedL
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onDeleteSkippedQuestionIdFromDbEvent(DeleteSkippedQuestionIdFromDbEvent deleteSkippedQuestionIdFromDbEvent){
         mSkippedQuestionsDbProvider.deleteSkippedQuestionIdFromDb(deleteSkippedQuestionIdFromDbEvent.getId());
+    }
+
+    /**
+     * Handles {@link AnswerRadioButtonPressedEvent}. Transmits chosen {@link Answer} to {@link com.dark.webprog26.lawyerquiz.QuizActivity}
+     * via {@link OnAnswerApprovedListener}
+     * @param answerRadioButtonPressedEvent {@link AnswerRadioButtonPressedEvent}
+     */
+    @Subscribe (threadMode = ThreadMode.MAIN)
+    public void onAnswerRadioButtonPressedEvent(final AnswerRadioButtonPressedEvent answerRadioButtonPressedEvent){
+        final Answer checkedAnswer = answerRadioButtonPressedEvent.getCheckedAnswer();
+        mBtnResumeQuestion.setEnabled(true);
+        mBtnResumeQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mQuiz.setAnsweredQuestionsCount(mQuiz.getAnsweredQuestionsCount() + 1);
+                mQuiz.setScoredPointsCount(mQuiz.getScoredPointsCount() + checkedAnswer.getPoints());
+
+                //getting useful tip text
+                String usefulTipText = checkedAnswer.getReferenceText();
+
+                if(!usefulTipText.equalsIgnoreCase("null")){
+                    //useful exists and should be shown
+                    mQuiz.showUsefulTip(usefulTipText);
+                }
+
+                if(mQuiz.getQuizMode() == Quiz.ARCADE_MODE){
+                    //in arcade mode we should set next question id depending on the Answer user chose
+                    mQuiz.setCurrentQuestionId(checkedAnswer.getNextQuestionId());
+                } else {
+                    Log.i(QUIZ_ACTIVITY_TAG, "deleting from SQLiteDb question with id  " + mQuiz.getCurrentQuestionId());
+                    //in skipped questions mode we should delete passed question id from skipped questions IDs database
+                    EventBus.getDefault().post(new DeleteSkippedQuestionIdFromDbEvent(mQuiz.getCurrentQuestionId()));
+                }
+
+                Log.i(QUIZ_ACTIVITY_TAG, "in quiz next id is " + mQuiz.getCurrentQuestionId());
+                //resume the quiz
+                mQuiz.resume();
+                mBtnResumeQuestion.setEnabled(false);
+            }
+        });
     }
 
     /**
